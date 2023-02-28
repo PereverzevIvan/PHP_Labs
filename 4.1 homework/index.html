@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Переверзев Иван 221-321</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__container container">
+            <a href="index.html" class="header__logo">
+                <img src="../logo.svg" alt="" class="image">
+            </a>
+            <h1>4.1. Домашняя работа: Feedback Form</h1>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <h2>Feedback form</h2>
+            <form action="https://httpbin.org/post" method="post">
+                <fieldset>
+                    <legend>Заполните поля</legend>
+                    <label for="name">Имя</label>
+                    <input type="text" name="name">
+                    <label for="email">Email</label>
+                    <input type="email" name="email">
+                    <label for="message_type">Тип обращения</label>
+                    <select name="message_type">
+                        <option value="empty"></option>
+                        <option value="thanks">Благодарность</option>
+                        <option value="complaint">Жалоба</option>
+                        <option value="offer">Предложение</option>
+                    </select>
+                    <label for="message">Сообщение</label>
+                    <textarea name="message" id="" cols="30" rows="10"></textarea>
+                    <label>Выбор ответа</label>
+                    <label><input type="checkbox" value="yes" name="sms_check">SMS</label>
+                    <label><input type="checkbox" value="yes" name="email_check">EMAIL</label>
+                    <button type="submit">Отправить</button>
+                </fieldset>
+            </form>
+            <a href="get_headers.php" class="central-link">
+                Ссылка на результат функции get_headers()
+            </a>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__container container">
+            <a href="index.html" class="header__logo">
+                <img src="../logo.svg" alt="" class="image">
+            </a>
+            <h2>Переверзев Иван Дмитриевич 221-321</h2>
+        </div>
+    </footer>
+</body>
+</html>
