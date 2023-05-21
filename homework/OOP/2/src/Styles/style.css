@@ -1,0 +1,58 @@
+.layout {
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.layout tr td {
+    padding: 20px;
+    vertical-align: top;
+    border: solid 1px gray;
+}
+
+.header {
+    font-size: 30px;
+}
+
+.footer {
+    text-align: center;
+}
+
+.sidebarHeader {
+    font-size: 20px;
+}
+
+.sidebar ul {
+    padding-left: 20px;
+}
+
+a, a:visited {
+    color: darkgreen;
+}
+
+.article-actions {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.edit-form label {
+    width: 100%;
+}
+
+.edit-form input, textarea {
+    margin-top: 5px;
+    margin-left: 10px;
+    width: 90%;
+}
