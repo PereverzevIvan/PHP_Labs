@@ -29,6 +29,9 @@
 
     unset($matches[0]);
 
+    $exception = new Exception('Сообщение об ошибке', 123);
+    throw $exception;
+
     $controllerName = $controllerAndAction[0];
     $actionName = $controllerAndAction[1];
     $controller = new $controllerName();
