@@ -57,7 +57,7 @@ abstract class ActiveRecordEntity
 
         $columnsViaSemicolon = implode(', ', $columns);
         $paramsNamesViaSemicolon = implode(', ', $paramsNames);
-    
+
         $sql = 'INSERT INTO ' . static::getTableName() . ' (' . $columnsViaSemicolon . ') VALUES (' . $paramsNamesViaSemicolon . ');';
 
         $db = Db::getInstance();
@@ -68,7 +68,9 @@ abstract class ActiveRecordEntity
     {
         $db = Db::getInstance();
         $db->query(
-            'DELETE FROM `' . static::getTableName() . '` WHERE id = :id', [':id' => $this->id]);
+            'DELETE FROM `' . static::getTableName() . '` WHERE id = :id',
+            [':id' => $this->id]
+        );
 
         $this->id = null;
     }
@@ -95,6 +97,12 @@ abstract class ActiveRecordEntity
         return $db->query('SELECT * FROM `' . static::getTableName() . '`;', [], static::class);
     }
 
+    public static function findAllWhere(string $columnName, int $id): ?array
+    {
+        $db = Db::getInstance();
+        return $db->query('SELECT * FROM `'.static::getTableName().'` WHERE `'.$columnName.'`=:id', [':id'=>$id], static::class);
+    }
+
     public static function getById(int $id)
     {
         $db = Db::getInstance();
@@ -117,5 +125,19 @@ abstract class ActiveRecordEntity
         }
 
         return $mappedProperties;
+    }
+
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE `' . $columnName . '` = :value LIMIT 1;',
+            [':value' => $value],
+            static::class
+        );
+        if ($result === []) {
+            return null;
+        }
+        return $result[0];
     }
 }

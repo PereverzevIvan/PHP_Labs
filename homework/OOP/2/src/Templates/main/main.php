@@ -1,13 +1,13 @@
 <?php include __DIR__ . '/../header.php'; ?>
-
+<?php if ($articles) {echo '<h2>Статьи</h2>';}?>
 <?php foreach ($articles as $article): ?>
-    <h2>
+    <hr>
+    <h3>
         <a href="/PHP_Labs/homework/OOP/2/articles/check/<?= $article->getId() ?>"><?= $article->getName() ?></a>
-    </h2>
+    </h3>
     <p>
         <?= $article->getText() ?>
     </p>
-    <hr>
 <?php endforeach; ?>
 
 <?php include __DIR__ . '/../footer.php'; ?>

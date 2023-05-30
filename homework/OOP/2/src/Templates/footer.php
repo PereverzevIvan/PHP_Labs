@@ -3,8 +3,7 @@
                 <div class="sidebarHeader">Меню</div>
                 <ul>
                     <li><a href="/PHP_Labs/homework/OOP/2/">Главная страница</a></li>
-                    <li><a href="/PHP_Labs/homework/OOP/2/articles/create">Создать статью</a></li>
-                    <li><a href="/PHP_Labs/homework/OOP/2/about-me">Обо мне</a></li>
+                    <?= !empty($user) ? "<li><a href='/PHP_Labs/homework/OOP/2/articles/create'>Создать статью</a></li>" : '' ?>
                 </ul>
             </td>
             </tr>

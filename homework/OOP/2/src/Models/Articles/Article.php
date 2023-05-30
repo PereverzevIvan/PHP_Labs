@@ -3,6 +3,8 @@ namespace Models\Articles;
 
 use Models\ActiveRecord\ActiveRecordEntity;
 use Models\Users\User;
+use Models\Comments\Comment;
+use Services\Db;
 
 class Article extends ActiveRecordEntity
 {
@@ -29,6 +31,12 @@ class Article extends ActiveRecordEntity
     public function getAuthor(): User
     {
         return User::getById($this->authorId);
+    }
+
+    public function getComments(): array {
+        $db = Db::getInstance();
+        $result = $db->query('SELECT * FROM `comments` WHERE article_id = :id;', [':id' => $this->id], Comment::class);
+        return $result ? $result : [];
     }
 
     public function setName($name)

@@ -4,16 +4,20 @@ namespace Models\Controllers;
 use Models\View\View;
 use Models\Articles\Article;
 use Models\Users\User;
-use Services\Db;
+use Models\Users\UsersAuthService;
 
 class ArticlesController
 {
     /** @var View */
     private $view;
+    /** @var User|null */
+    private $user;
 
     public function __construct()
     {
+        $this->user = UsersAuthService::getUserByToken();
         $this->view = new View(__DIR__ . '/../../Templates');
+        $this->view->setVar('user', $this->user);
     }
 
     public function checkArticle(int $articleId)
@@ -25,8 +29,8 @@ class ArticlesController
             return;
         }
 
-        $user = $article->getAuthor();
-        $this->view->renderHtml('articles/view.php', ['article' => $article, 'user' => $user]);
+        $comments = $article->getComments();
+        $this->view->renderHtml('articles/view.php', ['article' => $article, 'comments' => $comments]);
     }
 
     public function editArticle(int $articleId)
@@ -39,21 +43,25 @@ class ArticlesController
         }
 
         $user = $article->getAuthor();
-        $this->view->renderHtml('articles/edit.php', ['article' => $article, 'user' => $user]);
+        $this->view->renderHtml('articles/edit.php', ['article' => $article, 'article_user' => $user]);
+        return;
     }
 
     public function createArticle(): void
     {
-        $author = User::getById(1);
+        if ($_POST) {
+            $author = User::getById($this->user->getId());
 
-        $article = new Article();
-        $article->setAuthor($author);
-        $article->setName('Новое название статьи');
-        $article->setText('Новый текст статьи');
-        $article->saveData();
+            $article = new Article();
+            $article->setAuthor($author);
+            $article->setName($_POST['title']);
+            $article->setText($_POST['text']);
+            $article->saveData();
 
-        $articles = Article::findAll();
-        $this->view->renderHtml('main/main.php', ['articles' => $articles]);
+            header('Location: /PHP_Labs/homework/OOP/2/');
+            exit; 
+        }
+        $this->view->renderHtml('articles/create.php');
     }
 
     public function deleteArticle(int $articleId): void
@@ -67,8 +75,8 @@ class ArticlesController
 
         $article->delete();
 
-        $articles = Article::findAll();
-        $this->view->renderHtml('main/main.php', ['articles' => $articles]);
+        header('Location: /PHP_Labs/homework/OOP/2/');
+        exit;
     }
 
     public function updateArticle(int $articleId)
@@ -84,8 +92,8 @@ class ArticlesController
         $article->setText($_POST['text']);
         $article->saveData();
 
-        $user = $article->getAuthor();
-        $this->view->renderHtml('articles/view.php', ['article' => $article, 'user' => $user]);
+        header("Location: /PHP_Labs/homework/OOP/2/articles/check/{$articleId}");
+        exit;
     }
 
 
